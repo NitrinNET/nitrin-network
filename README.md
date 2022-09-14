@@ -6,7 +6,13 @@ This is our current network code which we use to power our cloud and server. It 
 
 <br><br>
 ## How do I use it?
-### How do I create a packet, register it and handle it?
+
+- [How do I create a packet, register it and handle it?](#packet)
+- [ComponentFactory and ComponentHandler](#factory-handler)
+- [How do I create a server or client](#server-client)
+
+
+### <a id="packet">How do I create a packet, register it and handle it?</a>
 
 For outgoing packets you need to implement the WriteablePacket and for incoming packets you need to implment Packet. Only a Packet needs to be registered in order to receive the packet.
 We use the already provided ByteBuf from netty to write and read data.
@@ -40,7 +46,7 @@ PacketRegistry.register(PacketRegistry.DEFAULT + 0) { PingPacket() }
 ```
 <br><br>
 
-### How does a component get created?
+### <a id="factory-handler">How does a component get created?</a>
 
 A component get's created when a channel connects. It is created by using the ComponentFactory. You can either define your own ComponentFactory or use our build-in factory.
 It will create a component with no information which just handles the packet sending
@@ -71,7 +77,7 @@ val handler = object : ComponentHandler {
 ```
 <br><br>
 
-### How do I create a server?
+### <a id="server-client">How do I create a server?</a>
 
 You will need a SocketAddress and a ComponentHandler in order to create a server, the ComponentFactory is optional. 
 
