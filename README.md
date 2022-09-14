@@ -99,5 +99,5 @@ client.connect()
 ```
 
 
-<br>
+<br><br>
 You can find out about our project at https://www.nitrin.net/ or e-mail us your questions info@nitrin.net
