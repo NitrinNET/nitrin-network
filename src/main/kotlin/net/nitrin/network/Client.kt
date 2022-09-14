@@ -16,11 +16,7 @@ class Client(private val address: SocketAddress, private val handler: ComponentH
         val bootstrap: Bootstrap = Bootstrap()
             .channel(socketChannel())
             .group(eventGroup)
-            .handler(DefaultChannelInitializer(object : ComponentFactory {
-                override fun create(): NetworkComponent {
-                    return this@Client
-                }
-            }, handler))
+            .handler(DefaultChannelInitializer(DefaultComponentFactory(), handler))
         println("Connecting to the network server...")
         val future = bootstrap.connect(address)
         future.awaitUninterruptibly(100, TimeUnit.SECONDS)

@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit
 class DefaultChannelInitializer(private val factory: ComponentFactory, private val handler: ComponentHandler): ChannelInitializer<Channel>() {
 
     override fun initChannel(channel: Channel) {
-        val component = factory.create()
+        val component = factory.create(channel)
         channel.pipeline()
             .addLast("idle-state-handler", IdleStateHandler(30, 15, 0, TimeUnit.SECONDS))
             .addLast("idle-handler", IdleHandler())

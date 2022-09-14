@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit
 
 class Server(private val address: SocketAddress, private val factory: ComponentFactory, private val handler: ComponentHandler) {
 
+    constructor(address: SocketAddress, handler: ComponentHandler): this(address, DefaultComponentFactory(), handler)
+
     private val bossGroup: EventLoopGroup = createEventLoopGroup()
     private val workerGroup: EventLoopGroup = createEventLoopGroup()
     private var channel: Channel? = null
