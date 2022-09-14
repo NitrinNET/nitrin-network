@@ -1,10 +1,11 @@
 # nitrin-network
 
-This is our current network code which we use to power our cloud and server. It uses its own packet implementation.
+This is our current network code which we use to power our cloud and server. It uses its own packet implementation.<br>
+We use the framework <a href="https://github.com/netty/netty">netty</a> for good performance and simplicity
 
-> **This code is experimental**
+> **This code is experimental** ⚠️
 
-<br><br>
+<br>
 ## How do I use it?
 
 - [How do I create a packet, register it and handle it?](#packet)
