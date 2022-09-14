@@ -44,7 +44,7 @@ PacketRegistry.register(PingPacket::class, PingPacketInHandler())
 
 PacketRegistry.register(PacketRegistry.DEFAULT + 0) { PingPacket() }
 ```
-<br><br>
+<br>
 
 ### <a id="factory-handler">How does a component get created?</a>
 
@@ -58,7 +58,7 @@ val factory = object : ComponentFactory {
     }
 }
 ```
-<br><br>
+<br>
 
 ### How does exceptions or a disconnect get handled?
 
@@ -75,7 +75,7 @@ val handler = object : ComponentHandler {
     }
 }
 ```
-<br><br>
+<br>
 
 ### <a id="server-client">How do I create a server?</a>
 
@@ -86,7 +86,7 @@ val server = Server(InetSocketAddress(port), factory, handler)
 
 server.start()
 ```
-<br><br>
+<br>
 
 ### How do I create a client?
 
@@ -99,5 +99,5 @@ client.connect()
 ```
 
 
-<br><br>
+<br>
 You can find out about our project at https://www.nitrin.net/ or e-mail us your questions info@nitrin.net
