@@ -7,12 +7,25 @@ import net.nitrin.network.packet.WriteablePacket
 import java.net.SocketAddress
 import java.util.concurrent.TimeUnit
 
-class Client(private val address: SocketAddress, private val handler: ComponentHandler): NetworkComponent {
+/**
+ * Used to connect to [Server] and support our component system
+ *
+ * @param handler used to handle disconnect & exception
+ */
+class Client(private val handler: ComponentHandler): NetworkComponent {
 
-    private val eventGroup: EventLoopGroup = createEventLoopGroup()
+    private var eventGroup: EventLoopGroup? = null
     private var channel: Channel? = null
 
-    fun connect() {
+    /**
+     * Connects to specified address
+     *
+     * @param address which connect to
+     * @throws RuntimeException when couldn't connect to specified address
+     */
+    fun connect(address: SocketAddress) {
+        eventGroup = createEventLoopGroup()
+
         val bootstrap: Bootstrap = Bootstrap()
             .channel(socketChannel())
             .group(eventGroup)
@@ -29,10 +42,13 @@ class Client(private val address: SocketAddress, private val handler: ComponentH
         }
     }
 
+    /**
+     * Disconnects from current connection. Shuts current [EventLoopGroup] down
+     */
     fun disconnect() {
         println("Shutting down the network client")
         channel?.close()
-        eventGroup.shutdownGracefully()
+        eventGroup?.shutdownGracefully()
         println("Network client shutdown")
     }
 

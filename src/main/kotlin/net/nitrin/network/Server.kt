@@ -7,15 +7,29 @@ import io.netty.channel.EventLoopGroup
 import java.net.SocketAddress
 import java.util.concurrent.TimeUnit
 
-class Server(private val address: SocketAddress, private val factory: ComponentFactory, private val handler: ComponentHandler) {
+/**
+ * Used to start a [Server] and support our component system
+ *
+ * @param handler used to handle disconnect & exception
+ */
+class Server(private val factory: ComponentFactory, private val handler: ComponentHandler) {
 
-    constructor(address: SocketAddress, handler: ComponentHandler): this(address, DefaultComponentFactory(), handler)
+    constructor(handler: ComponentHandler): this(DefaultComponentFactory(), handler)
 
-    private val bossGroup: EventLoopGroup = createEventLoopGroup()
-    private val workerGroup: EventLoopGroup = createEventLoopGroup()
+    private var bossGroup: EventLoopGroup? = null
+    private var workerGroup: EventLoopGroup? = null
     private var channel: Channel? = null
 
-    fun start() {
+    /**
+     * Starts server on specified address
+     *
+     * @param address which to start on
+     * @throws RuntimeException when couldn't start with specified address
+     */
+    fun start(address: SocketAddress) {
+        bossGroup = createEventLoopGroup()
+        workerGroup = createEventLoopGroup()
+
         val bootstrap: ServerBootstrap = ServerBootstrap()
             .channel(serverSocketChannel())
             .group(bossGroup, workerGroup)
@@ -33,11 +47,14 @@ class Server(private val address: SocketAddress, private val factory: ComponentF
         }
     }
 
+    /**
+     * Stops current connection. Shuts current [EventLoopGroup]s down
+     */
     fun shutdown() {
         println("Shutting down the network server")
         channel?.close()
-        workerGroup.shutdownGracefully()
-        bossGroup.shutdownGracefully()
+        workerGroup?.shutdownGracefully()
+        bossGroup?.shutdownGracefully()
         println("Network server shutdown")
     }
 }
