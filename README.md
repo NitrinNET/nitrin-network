@@ -83,9 +83,9 @@ val handler = object : ComponentHandler {
 You will need a SocketAddress and a ComponentHandler in order to create a server, the ComponentFactory is optional. 
 
 ```kotlin 
-val server = Server(InetSocketAddress(port), factory, handler)
+val server = Server(factory, handler)
 
-server.start()
+server.start(InetSocketAddress(port))
 ```
 <br>
 
@@ -94,9 +94,9 @@ server.start()
 You will need a SocketAddress and a ComponentHandler in order to create a client. 
 
 ```kotlin 
-val client = Client(InetSocketAddress(port), handler)
+val client = Client(handler)
 
-client.connect()
+client.connect(InetSocketAddress(port))
 ```
 
 
