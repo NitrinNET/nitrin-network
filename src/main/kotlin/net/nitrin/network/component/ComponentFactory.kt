@@ -1,6 +1,7 @@
-package net.nitrin.network
+package net.nitrin.network.component
 
 import io.netty.channel.Channel
+import net.nitrin.network.component.NetworkComponent
 
 interface ComponentFactory {
 

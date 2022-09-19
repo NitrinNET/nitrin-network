@@ -2,6 +2,8 @@ package net.nitrin.network
 
 import io.netty.channel.ChannelHandlerContext
 import io.netty.channel.ChannelInboundHandlerAdapter
+import net.nitrin.network.component.ComponentListener
+import net.nitrin.network.component.NetworkComponent
 
 /**
  * Handles inactivity and exceptions from [NetworkComponent]

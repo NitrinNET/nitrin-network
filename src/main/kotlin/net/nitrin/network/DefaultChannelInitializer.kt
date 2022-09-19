@@ -3,6 +3,8 @@ package net.nitrin.network
 import io.netty.channel.Channel
 import io.netty.channel.ChannelInitializer
 import io.netty.handler.timeout.IdleStateHandler
+import net.nitrin.network.component.ComponentFactory
+import net.nitrin.network.component.ComponentListener
 import net.nitrin.network.packet.PacketHandler
 import net.nitrin.network.packet.codec.PacketDecoder
 import net.nitrin.network.packet.codec.PacketEncoder

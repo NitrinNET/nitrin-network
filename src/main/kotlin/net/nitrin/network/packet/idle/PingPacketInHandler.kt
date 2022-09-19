@@ -1,7 +1,7 @@
 package net.nitrin.network.packet.idle
 
 import io.netty.channel.Channel
-import net.nitrin.network.NetworkComponent
+import net.nitrin.network.component.NetworkComponent
 import net.nitrin.network.NetworkContext
 import net.nitrin.network.packet.PacketInHandler
 

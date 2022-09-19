@@ -1,4 +1,4 @@
-package net.nitrin.network
+package net.nitrin.network.component
 
 import io.netty.channel.Channel
 

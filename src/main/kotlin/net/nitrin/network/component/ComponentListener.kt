@@ -1,4 +1,6 @@
-package net.nitrin.network
+package net.nitrin.network.component
+
+import net.nitrin.network.NetworkContext
 
 interface ComponentListener {
 
