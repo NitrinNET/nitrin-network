@@ -10,9 +10,9 @@ import java.util.concurrent.TimeUnit
 /**
  * Used to connect to [Server] and support our component system
  *
- * @param handler used to handle disconnect & exception
+ * @param listener used to listen to disconnect & exception
  */
-class Client(private val handler: ComponentHandler): NetworkComponent {
+class Client(private val listener: ComponentListener): NetworkComponent {
 
     private var eventGroup: EventLoopGroup? = null
     private var channel: Channel? = null
@@ -29,7 +29,7 @@ class Client(private val handler: ComponentHandler): NetworkComponent {
         val bootstrap: Bootstrap = Bootstrap()
             .channel(socketChannel())
             .group(eventGroup)
-            .handler(DefaultChannelInitializer(DefaultComponentFactory(), handler))
+            .handler(DefaultChannelInitializer(DefaultComponentFactory(), listener))
         println("Connecting to the network server...")
         val future = bootstrap.connect(address)
         future.awaitUninterruptibly(100, TimeUnit.SECONDS)

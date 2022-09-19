@@ -9,7 +9,7 @@ import net.nitrin.network.packet.codec.PacketEncoder
 import net.nitrin.network.packet.idle.IdleHandler
 import java.util.concurrent.TimeUnit
 
-class DefaultChannelInitializer(private val factory: ComponentFactory, private val handler: ComponentHandler): ChannelInitializer<Channel>() {
+class DefaultChannelInitializer(private val factory: ComponentFactory, private val listener: ComponentListener): ChannelInitializer<Channel>() {
 
     override fun initChannel(channel: Channel) {
         val component = factory.create(channel)
@@ -19,6 +19,6 @@ class DefaultChannelInitializer(private val factory: ComponentFactory, private v
             .addLast("packet-decoder", PacketDecoder())
             .addLast("packet-encoder", PacketEncoder())
             .addLast("packet-handler", PacketHandler(component))
-            .addLast("channel-handler", ChannelHandler(handler, component))
+            .addLast("channel-handler", ChannelHandler(listener, component))
     }
 }

@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit
 /**
  * Used to start a [Server] and support our component system
  *
- * @param handler used to handle disconnect & exception
+ * @param listener used to listen to disconnect & exception
  */
-class Server(private val factory: ComponentFactory, private val handler: ComponentHandler) {
+class Server(private val factory: ComponentFactory, private val listener: ComponentListener) {
 
-    constructor(handler: ComponentHandler): this(DefaultComponentFactory(), handler)
+    constructor(handler: ComponentListener): this(DefaultComponentFactory(), handler)
 
     private var bossGroup: EventLoopGroup? = null
     private var workerGroup: EventLoopGroup? = null
@@ -34,7 +34,7 @@ class Server(private val factory: ComponentFactory, private val handler: Compone
             .channel(serverSocketChannel())
             .group(bossGroup, workerGroup)
             .childOption(ChannelOption.TCP_NODELAY, true)
-            .childHandler(DefaultChannelInitializer(factory, handler))
+            .childHandler(DefaultChannelInitializer(factory, listener))
         println("Starting network server...")
         val future = bootstrap.bind(address)
         future.awaitUninterruptibly(100, TimeUnit.SECONDS)

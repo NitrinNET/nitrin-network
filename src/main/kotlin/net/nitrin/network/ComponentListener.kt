@@ -1,14 +1,14 @@
 package net.nitrin.network
 
-interface ComponentHandler {
+interface ComponentListener {
 
     /**
      * Fired when [NetworkComponent] disconnects
      */
-    fun handleDisconnect(context: NetworkContext)
+    fun disconnect(context: NetworkContext)
 
     /**
      * Fired when [NetworkComponent] throws an exception
      */
-    fun handleException(context: NetworkContext)
+    fun exception(context: NetworkContext)
 }

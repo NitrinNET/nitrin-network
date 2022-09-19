@@ -9,7 +9,7 @@ We use the framework <a href="https://github.com/netty/netty">netty</a> for good
 ## How do I use it?
 
 - [How do I create a packet, register it and handle it?](#packet)
-- [ComponentFactory and ComponentHandler](#factory-handler)
+- [ComponentFactory and ComponentListener](#factory-handler)
 - [How do I create a server or client](#server-client)
 
 
@@ -63,15 +63,15 @@ val factory = object : ComponentFactory {
 
 ### How does exceptions or a disconnect get handled?
 
-The ComponentHandler listens to disconnects and exceptions, either way the channel is closed before the event is triggered
+The ComponentListener listens to disconnects and exceptions, either way the channel is closed before the event is triggered
 
 ```kotlin 
-val handler = object : ComponentHandler {
-    override fun handleDisconnect(context: NetworkContext) {
+val handler = object : ComponentListener {
+    override fun disconnect(context: NetworkContext) {
         TODO("Not yet implemented")
     }
 
-    override fun handleException(context: NetworkContext) {
+    override fun exception(context: NetworkContext) {
         TODO("Not yet implemented")
     }
 }
@@ -80,7 +80,7 @@ val handler = object : ComponentHandler {
 
 ### <a id="server-client">How do I create a server?</a>
 
-You will need a SocketAddress and a ComponentHandler in order to create a server, the ComponentFactory is optional. 
+You will need a SocketAddress and a ComponentListener in order to create a server, the ComponentFactory is optional. 
 
 ```kotlin 
 val server = Server(factory, handler)
@@ -91,7 +91,7 @@ server.start(InetSocketAddress(port))
 
 ### How do I create a client?
 
-You will need a SocketAddress and a ComponentHandler in order to create a client. 
+You will need a SocketAddress and a ComponentListener in order to create a client. 
 
 ```kotlin 
 val client = Client(handler)
